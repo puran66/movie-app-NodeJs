@@ -17,7 +17,7 @@ app.use(cookieParser())
 // cors set up //
 
 const corsOptions = {
-  origin: '*',
+  origin: ['http://localhost:3001','https://movie-app-nodejs.onrender.com'],
   credentials: true,
 };
 
