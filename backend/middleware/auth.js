@@ -3,6 +3,7 @@ const JWT = require('jsonwebtoken')
 const authenticate = (req, res, next) => {
   try {
     const token = req.cookies.token;
+    // console.log(token);
 
     if (!token) {
       res.status(400).json({ message: "You are not logged in!" });
@@ -24,7 +25,7 @@ const checkAuth = ([...role]) => {
   try {
     return (req, res, next) => {
       let user = req.user;
-      // console.log(role.includes(user.role));
+      // console.log(user);
 
       if (role.includes(user.role)) {
         return next();

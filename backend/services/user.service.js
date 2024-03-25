@@ -1,9 +1,10 @@
 const { userSchema } = require("../model")
 const { createHmac } = require('crypto')
-const JWT = require('jsonwebtoken')
+const JWT = require('jsonwebtoken');
+const { userController } = require("../controller");
 
-const createUser = (fullName, email, password,profileImage) => {
-  return userSchema.create({ fullName, email, password,profileImage });
+const createUser = (fullName, email, password,role,profileImage) => {
+  return userSchema.create({ fullName, email, password,role,profileImage });
 }
 
 const findUser = (email) => {
@@ -18,7 +19,7 @@ const verifyPassword = (user, password) => {
   // console.log(hashedPassword);
 
   if (hashedPassword !== userhashedPassword) {
-    throw new Error("Invalid Password");
+    return  false;
   }
 
   return user;
@@ -46,4 +47,25 @@ const getProfile = (token) => {
   return JWT.verify(token, process.env.SECRETKEYFORTOKEN);
 }
 
-module.exports = { createUser, findUser, verifyPassword, createToken, getProfile }
+const getUsers = () =>{
+  return userSchema.find({})
+}
+
+const updateUser = (_id,body,image)=>{
+  return userSchema.findByIdAndUpdate({_id},{
+    profileImage:image,
+    fullName: body.fullName,
+    email: body.email
+  })
+}
+
+const changePassword = (_id,newPassword) =>{
+  return userSchema.findByIdAndUpdate({_id},{
+    password:newPassword
+  })
+}
+
+const deleteUser = (_id) =>{
+  return userSchema.findByIdAndDelete(_id);
+}
+module.exports = { createUser, findUser, verifyPassword, createToken, getProfile,getUsers,deleteUser ,updateUser ,changePassword }

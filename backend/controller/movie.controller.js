@@ -1,11 +1,12 @@
+const uploadImage = require("../middleware/cloudinary");
 const { movieServices, userServices } = require("../services");
 
 const addmovie = async (req, res) => {
   try {
     const { movieName, movieDescription } = req.body;
-    const movieImageUrl = req.file.path;
+    const imagePath = req.file.path;
     if (!movieName || !movieDescription) {
-      throw new Error("inputs required!");
+      res.status(400).json({ message: "Movie name and description are required" });
     }
 
     const token = req.cookies.token;
@@ -15,7 +16,9 @@ const addmovie = async (req, res) => {
 
     const userId = getUser._id;
 
-    const addedMovie = await movieServices.addMovie(movieName, movieDescription, userId ,movieImageUrl);
+    const movieImageUrl = await uploadImage(imagePath); 
+
+    const addedMovie = await movieServices.addMovie(movieName, movieDescription, userId ,movieImageUrl.url);
 
     res.status(201).json({
       message: "movie added success",
@@ -47,7 +50,7 @@ const updateMovie = async (req, res) => {
 
     res.status(200).json({
       message: "data updated success",
-      upadted
+      updatedData
     })
   } catch (error) {
     console.log(error);
