@@ -1,0 +1,110 @@
+Movie App Backend Documentation
+-------------------------------
+
+Introduction
+------------
+Welcome to the documentation for the Movie App Backend. This backend is designed to manage movies and users within the system, providing functionalities like adding, updating, deleting movies, and managing user authentication.
+
+Technologies Used
+-----------------
+- Node.js
+- Express.js
+- MongoDB with Mongoose
+- JWT (JSON Web Tokens) for authentication
+- Cloudinary for image storage
+- Multer for file uploads
+
+Setup
+-----
+1. Clone the Repository: Clone the Movie App Backend repository from the provided source.
+2. Install Dependencies: Run `npm install` to install all required dependencies.
+3. Environment Variables: Create a .env file and define environment variables like `DB`, `SECRETKEYFORTOKEN`, `CLOUDNAME`, `APIKEY`, and `APISECRET`.
+4. Start the Server: Run `npm start` to start the server. By default, the server will run on port specified in the environment variable `PORT`.
+
+Endpoints
+---------
+Movie Endpoints
+---------------
+- POST /api/movies/add-movie
+  - Description: Adds a new movie to the system.
+  - Required Fields: movieName, movieDescription, movieImageUrl
+  - Authentication Required: Yes
+  - Authorization Required: Admin
+  - Method: POST
+
+- POST /api/movies/update-movie/:id
+  - Description: Updates an existing movie.
+  - Required Fields: movieName, movieDescription, movieImageUrl
+  - Authentication Required: Yes
+  - Authorization Required: Admin
+  - Method: POST
+
+- GET /api/movies/get-movies
+  - Description: Retrieves all movies from the system.
+  - Authentication Required: Yes
+  - Authorization Required: Admin, User
+  - Method: GET
+
+- GET /api/movies/delete-movie/:id
+  - Description: Deletes a movie from the system.
+  - Authentication Required: Yes
+  - Authorization Required: Admin
+  - Method: GET
+
+- GET /api/movies/get-movie-by-id/:id
+  - Description: Retrieves a movie by its ID.
+  - Authentication Required: Yes
+  - Authorization Required: Admin
+  - Method: GET
+
+User Endpoints
+--------------
+- POST /api/users/sign-up
+  - Description: Registers a new user.
+  - Required Fields: fullName, email, password, profileImage
+  - Method: POST
+
+- POST /api/users/login
+  - Description: Logs in an existing user.
+  - Required Fields: email, password
+  - Method: POST
+
+- GET /api/users/all-users
+  - Description: Retrieves all users from the system.
+  - Authentication Required: Yes
+  - Authorization Required: Admin
+  - Method: GET
+
+- DELETE /api/users/user-delete/:id
+  - Description: Deletes a user from the system.
+  - Authentication Required: Yes
+  - Authorization Required: Admin
+  - Method: DELETE
+
+- POST /api/users/change-password/:id
+  - Description: Changes the password for a user.
+  - Required Fields: newPassword
+  - Authentication Required: Yes
+  - Method: POST
+
+- POST /api/users/user-update/:id
+  - Description: Updates user details.
+  - Required Fields: fullName, email, profileImage
+  - Authentication Required: Yes
+  - Authorization Required: Admin, User
+  - Method: POST
+
+- GET /api/users/profile
+  - Description: Retrieves the profile of the logged-in user.
+  - Authentication Required: Yes
+  - Authorization Required: Admin, User
+  - Method: GET
+
+Error Handling
+--------------
+- The backend handles various errors gracefully and returns appropriate HTTP status codes and error messages.
+- Errors are logged to the console for debugging purposes.
+
+Conclusion
+----------
+Thank you for using the Movie App Backend. If you have any further questions or need assistance, please refer to the provided documentation or contact the developers.
